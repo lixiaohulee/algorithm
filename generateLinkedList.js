@@ -61,8 +61,9 @@ function viewLinkList(node) {
           ? nodeList += '=>'
           : null
     }
-
+    console.log('')
     console.log(nodeList)
+    console.log('')
 }
 
 viewLinkList(headNode)
