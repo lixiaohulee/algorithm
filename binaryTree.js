@@ -8,52 +8,131 @@
  */
 
 
+ /**
+  * 二叉树是树的一种，每个节点最多可具有两个子树，即结点的度最大为2（结点度：结点拥有的子树数）
+  */
+
 //节点类
+
+// function Node(val) {
+//     this.val = val
+//     this.leftChild = null
+//     this.rightChild = null
+// }
+
+// function createTree(arr) {
+
+//     if (!Array.isArray(arr) || arr.length < 1) {
+//         return arr
+//     }
+
+//     const root = new Node(arr[0])
+
+//     let index = 1
+//     let curNode = root
+
+//     while(arr[index] !== undefined) {
+        
+//         if (curNode.leftChild === null) {
+//             const node = new Node(arr[index])
+//             curNode.leftChild = node
+//             index++
+//             continue
+//         }
+//         if (curNode.rightChild === null) {
+//             const node = new Node(arr[index])
+//             curNode.rightChild = node
+//             index++
+//             continue
+//         }
+
+//         curNode = curNode.leftChild
+//     }
+
+//     return root
+// }
+
+
+// const arr = [1,2,3,4,5,6,7]
+
+// const root = createTree(arr)
+
+// console.log(root.leftChild.rightChild.val)
+
+
+
+
+
+/**
+ * 定义
+ * 1. 空树
+ * 2. 若它的左子树不为空 则左子树上的所有节点的值都小于根结点的值
+ * 3. 若它的右子树不为空 则右子树上的所有节点的值都大于根节点的值
+ * 4. 它的左右子树都是二叉查找树
+ */
+
 
 function Node(val) {
     this.val = val
-    this.leftChild = null
-    this.rightChild = null
+    this.leftNode = null
+    this.rightNode = null
 }
 
-function createTree(arr) {
+function createBinarySortTree(arr) {
 
-    if (!Array.isArray(arr) || arr.length < 1) {
-        return arr
+    if (!Array.isArray(arr)) {
+        return new TypeError('expected a array')
+    }
+
+
+    if (arr.length === 0) {
+        return null
     }
 
     const root = new Node(arr[0])
+    
+
 
     let index = 1
-    let curNode = root
+    
 
-    while(arr[index] !== undefined) {
-        
-        if (curNode.leftChild === null) {
-            const node = new Node(arr[index])
-            curNode.leftChild = node
-            index++
-            continue
-        }
-        if (curNode.rightChild === null) {
-            const node = new Node(arr[index])
-            curNode.rightChild = node
-            index++
-            continue
-        }
-
-        curNode = curNode.leftChild
+    while(index <= arr.length - 1) {
+        initNode(root, arr[index])
+        index++
     }
 
+
     return root
+
+}
+
+function initNode(node, val) {
+    let curNode = node
+
+    if (val <= curNode.val) {
+        if(curNode.leftNode !== null) {
+            initNode(curNode.leftNode, val)
+            return
+        }
+        curNode.leftNode = new Node(val)
+    }else {
+        if (curNode.rightNode !== null) {
+            initNode(curNode.rightNode, val)
+            return
+        }
+        curNode.rightNode = new Node(val)
+    }
 }
 
 
-const arr = [1,2,3,4,5,6,7]
+const arr = [8,6,3,74,8,4,2,6,0,3,8,2,7,2,2,7,2,51,2,3,4]
 
-const root = createTree(arr)
+const root = createBinarySortTree(arr)
 
-console.log(root.leftChild.rightChild.val)
+console.log(root.rightNode.leftNode.val)
+
+
+
 
 
 
