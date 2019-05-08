@@ -2,22 +2,12 @@
 
 
 
-
-
-
-
-
-var name = 2
-
-switch(name) {
-    case 0:
-    case 1: console.log(11111)
-         break
-    default: 
-         console.log(33333)
-}
-
-
-
+new Promise((resolve, reject) => {
+    if (false) {
+        resolve(2)
+    }else {
+        reject(23)
+    }
+}).then(res => console.log(res), err => console.log(err))
 
 
