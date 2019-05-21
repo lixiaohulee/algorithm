@@ -2,12 +2,17 @@
 
 
 
-new Promise((resolve, reject) => {
-    if (false) {
-        resolve(2)
-    }else {
-        reject(23)
-    }
-}).then(res => console.log(res), err => console.log(err))
+
+
+
+
+var reg = null
+
+
+for(var i = 0; i <= 10; i++) {
+  reg = /cat/g
+
+  console.log(reg.test('catasfasdf'))
+}
 
 
