@@ -6,6 +6,8 @@
 
 /**
  * 检验传入的数值是否是一个合法的手机号
+ * @param {Number} 
+ * @returns {Boolean}
  */
 
 
@@ -21,4 +23,4 @@ function isAPhoneNum(phoneNum) {
 }
 
 
-console.log(isAPhoneNum(11033332122))
+console.log(isAPhoneNum('d11033332122'))
