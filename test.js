@@ -6,13 +6,10 @@
 
 
 
-var reg = null
 
 
-for(var i = 0; i <= 10; i++) {
-  reg = /cat/g
+const reg = /li\b/
 
-  console.log(reg.test('catasfasdf'))
-}
+const str = 'li     '
 
-
+console.log(reg.test(str))
