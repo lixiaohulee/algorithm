@@ -20,8 +20,8 @@ function generateLinkedList(arr) {
         return null
     }
 
-    const headNode = new Node(arr[0])
-    let tempNode = headNode,
+    const head = new Node(arr[0])
+    let tempNode = head,
         index = 1
     while(index <= arr.length - 1) {
         const newNode = new Node(arr[index])
@@ -30,7 +30,7 @@ function generateLinkedList(arr) {
         index++
     }
 
-    return headNode
+    return head
 
 }
 
@@ -38,16 +38,29 @@ const arr = [2,4,4,6,85,8,943]
 
 const head = generateLinkedList(arr)
 
-console.log(head.next.next.next.value)
-
-
-function reverseLinkedList(headNode) {
-    if (headNode) {
-        if (headNode.next === null) {
-            return headNode
+function reverseLinkedList(head) {
+    if (head) {
+        if (head.next === null || head === null) {
+            return head
         }
 
-        let tempNode = headNode.next
+        let preNode = null,
+            nextNode = null
         
+        while(head !== null) {
+            nextNode = head.next
+
+            head.next = preNode
+            preNode = head
+            head = nextNode
+        }
+
+        return preNode
     }
 }
+
+
+const newHead = reverseLinkedList(head)
+
+console.log(newHead.next.value)
+
