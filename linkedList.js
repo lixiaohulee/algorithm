@@ -101,6 +101,42 @@ LinkedList.prototype.reverse = function() {
 }
 
 
+//返回指定的节点
+LinkedList.prototype.getNodeByIndex = function(index) {
+    if (typeof index !== 'number') {
+        throw new TypeError('index must be a number')
+    }
+
+    if (index <= 0 || index > this.size()) {
+        throw new Error('index is inValid')
+    }
+
+    let postion = 1
+    let currentNode = this.headNode
+
+    while(currentNode !== null) {
+        if (postion === index) {
+            return currentNode
+        }
+        postion++
+        currentNode = currentNode.next
+    }
+}
+
+
+//插入节点
+LinkedList.prototype.insert = function(value, node) {
+    if (!(node instanceof Node)) {
+        throw new TypeError('node is not Node type')
+    }
+    if (this.headNode === null) {
+        return new Node(value)
+    }
+
+    
+}
+
+
 const list = new LinkedList()
 
 list.addNode(1)
@@ -112,7 +148,7 @@ list.addNode(6)
 list.addNode(7)
 
 
-
-list.printNode()
-list.reverse()
-list.printNode()
+console.log(list.getNodeByIndex(3).value)
+// list.printNode()
+// list.reverse()
+// list.printNode()
