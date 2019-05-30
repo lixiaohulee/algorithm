@@ -16,7 +16,14 @@ function getQuery(url) {
     }
 
     let urlObj = Object.create(null)
-    url.split('&')[1].split('&').forEach(item => {
-        
+    url.split('?')[1].split('&').forEach(item => {
+        item = item.split('=')
+        urlObj[item[0]] = item[1]
     })
+
+    return urlObj
 }
+
+const url = 'https://www.baidu.com?name=lee&age=343'
+
+console.log(getQuery(url))
