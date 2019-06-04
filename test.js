@@ -4,24 +4,25 @@
 
 
 function throttle(func, delay) {
-    if (typeof func !== 'function') {
-        throw new TypeError('func need a function')
+    if (typeof func !== 'function' || typeof delay !== 'number') {
+        throw new TypeError('arguments type error')
     }
-    if (typeof delay !== 'number') {
-        throw new TypeError('delay must be a number')
-    }
-    let lastTime = 0
+    
+    let canRun = true
     return function(...args) {
-        const _this = this
-        const now = new Date().getTime()
-        if (now - lastTime < delay) {
+        if(!canRun) {
             return
         }
-        func.apply(_this, args)
-        lastTime = now
+
+        canRun = false
+        const _this = this
+        const timer = setTimeout(function(){
+            func.apply(_this, args)
+            canRun = true
+            clearTimeout(timer)
+        }, delay)
     }
 }
 
-const callback = throttle(() => console.log('lixiaohu'), 500)
-
+const callback = throttle(() => console.log(3333), 500)
 window.addEventListener('scroll',callback, false)
