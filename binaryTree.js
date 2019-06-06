@@ -68,12 +68,39 @@ function addNode(root, addValue) {
 }
 
 
-
+/**
+ * 中序遍历
+ * @param {Node} root 
+ */
 function mediumOrder(root) {
     if (root !== null) {
         mediumOrder(root.leftNode)
         console.log(root.value)
         mediumOrder(root.rightNode)
+    }
+}
+
+/**
+ * 先序遍历
+ * @param {Node} root
+ */
+function preordering(root) {
+    if(root !== null) {
+        console.log(root.value)
+        preordering(root.leftNode)
+        preordering(root.rightNode)
+    }
+}
+
+/**
+ * 后序遍历
+ * @param {Node} root
+ */
+function postOrder(root) {
+    if(root !== null) {
+        postOrder(root.rightNode)
+        console.log(root.value)
+        postOrder(root.leftNode)
     }
 }
 
@@ -84,6 +111,8 @@ const arr = [1,3,653,2,6,7,3,7,8,4,3,7,4,3]
 const root = createBinaryTree(arr)
 
 mediumOrder(root)
+// preordering(root)
+// postOrder(root)
 
 
 
