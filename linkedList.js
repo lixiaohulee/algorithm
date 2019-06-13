@@ -124,6 +124,25 @@ LinkedList.prototype.getNodeByIndex = function(index) {
 }
 
 
+//删除指定的节点
+LinkedList.prototype.delete = function(target) {
+    const head = this.headNode
+    if (!target || !head) {
+        return 
+    }
+
+    let currentNode = head
+    
+    while(currentNode !== null) {
+        if (currentNode === target && currentNode.value === target.value) {
+
+        }else {
+            currentNode = currentNode.next
+        }
+    }
+}
+
+
 //插入节点
 LinkedList.prototype.insert = function(value, node) {
     if (!(node instanceof Node)) {
@@ -148,7 +167,7 @@ list.addNode(6)
 list.addNode(7)
 
 
-console.log(list.getNodeByIndex(3).value)
-// list.printNode()
+// console.log(list.getNodeByIndex(3).value)
+list.printNode()
 // list.reverse()
 // list.printNode()
