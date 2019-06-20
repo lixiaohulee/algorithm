@@ -10,13 +10,11 @@
 //链表节点
 
 function Node(value) {
-
     this.value = value
     this.nextNode = null
 }
 
 //生成链表
-
 function linkedList(arr) {
     if (!Array.isArray(arr) || arr.length < 1) {
         return arr
