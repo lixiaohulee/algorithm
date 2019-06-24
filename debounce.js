@@ -11,11 +11,16 @@
  * 函数防抖就是任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行
  */
 function debounce(func, delay) {
+    if (typeof func !== 'function' || typeof delay !== 'number') {
+        throw new TypeError('arguments type error')
+    }
+
     var timer = null
     return function(...args) {
         clearTimeout(timer)
-        const _this = this
+        var _this = this
         timer = setTimeout(function() {
+            clearTimeout(timer)
             return func.apply(_this, args)
         }, delay)
     }

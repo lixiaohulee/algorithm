@@ -57,3 +57,6 @@ function throttleTime(func, delay) {
     }
 }
 
+
+
+
