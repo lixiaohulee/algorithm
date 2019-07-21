@@ -4,10 +4,27 @@
 
 
 
-const a = {
-    name: 23
+
+
+function Father(name) {
+    this.name = name
+    this.address = 'lee'
 }
 
+Father.prototype.sayName = function() {
+    console.log(this.name)
+}
 
-console.log(a.constructor === Object)
+function Son(name) {
+    this.name = name
+}
 
+Son.prototype = new Father('a')
+
+const s = new Son('b')
+
+delete s.name
+
+
+s.sayName()
+console.log(s.address)
