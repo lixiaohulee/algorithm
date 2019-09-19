@@ -40,7 +40,7 @@ function Node(val) {
 }
 
 /**
- * 中顺遍历
+ * 层次遍历
  */
 const levelOrder = root => {
     if (!root) {
