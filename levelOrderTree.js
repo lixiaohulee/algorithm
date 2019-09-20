@@ -39,6 +39,39 @@ function Node(val) {
     this.right = null
 }
 
+function creatTree(arr) {
+    const len = Array.isArray(arr) ? arr.length : 0
+    if (len === 0) {
+        return null
+    }
+
+    const root = new Node(arr[0])
+
+    function insertNode(rootNode, val) {
+        if (rootNode) {
+            if (val < rootNode.val) {
+                if (rootNode.left) {
+                    insertNode(rootNode.left, val)
+                }else {
+                    rootNode.left = new Node(val)
+                }
+            }else {
+                if (rootNode.right) {
+                    insertNode(rootNode.right, val)
+                }else {
+                    rootNode.right = new Node(val)
+                }
+            }
+        }
+    }
+
+    for(let i = 1; i <= len - 1; i++) {
+        insertNode(root, arr[i])
+    }
+
+    return root
+}
+
 /**
  * 层次遍历
  */
@@ -73,3 +106,13 @@ const levelOrder = root => {
 
     return res
 }
+
+
+const arr = [1,2,3,4,5,6,7]
+
+console.log(creatTree(arr).right.right.right)
+
+
+const root = creatTree(arr)
+
+console.log(levelOrder(root))
