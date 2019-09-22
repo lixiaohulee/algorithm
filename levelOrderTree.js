@@ -116,3 +116,73 @@ console.log(creatTree(arr).right.right.right)
 const root = creatTree(arr)
 
 console.log(levelOrder(root))
+
+
+
+
+
+
+function getP(arr,left,right){
+    let temp=arr[left];
+    let l=left,r=right;
+    while(l<r){
+        while(l<r&&arr[r]>=temp) r--;
+        while(l<r&&arr[l]<=temp) l++;
+        let t=arr[r];
+        arr[l]=arr[r]
+        arr[r]=t;
+    }
+    arr[left]=arr[r]
+    arr[r]=temp;
+    return r;
+}
+
+function quick(arr,left,right){
+    let index=getP(arr,left,right);
+    if(index<right-1) quick(arr,left,index);
+    if(index>left-1) quick(arr,index,right);
+}
+let arr=[1,2,3,5,2,4];
+quick(arr,0,arr.length);
+console.log(arr)
+
+
+
+
+
+
+function binarySearch(arr, target)
+ {
+     if(arr){
+         
+     var start=0;
+     var end=arr.length-1
+     while(start!=end){
+         let cur=Math.floor((end-start)/2)
+         console.log(start+": "+end+" ")
+         if(arr[cur]==target) {
+            return cur;
+        }
+     else if(arr[cur]<target) {
+        end=cur-1;
+    }
+     else if(arr[cur]>target){
+         start=cur+1
+         console.log(start)
+     }
+     }
+         
+         return -1
+     }
+     
+     
+           return -1
+         }
+
+
+
+
+var arr = [1,4,6,8]
+var target = 8
+
+console.log(binarySearch(arr,target))

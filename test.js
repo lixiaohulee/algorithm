@@ -1,28 +1,25 @@
-
-
-
-
-
-function func(arr, target) {
-    if(arr.length <= 0) return -1;
-    else if(arr.length === 1) {
-        return arr[0] === target ? 0 : -1;
-    }else {
-        let left = 0, right = arr.length - 1;
-        while(left <= right) {
-            let mid = Math.floor((right + left) / 2);
-            if(arr[mid] < target) {
-                left = mid + 1;
-            }else if(arr[mid] > target) {
-                right = mid  - 1;
-            }else {
-                return mid;
-            }
-        }
-        return -1;
+function quickSort(arr,left=0, right=arr.length-1) {
+    var i=left
+    var j=right
+    var tmp = arr[i]
+    if(left>right){
+        return
     }
+    
+    while(i<j){
+        while (i<j && arr[j]>tmp) {
+          j--
+        }     
+        arr[i] = arr[j]
+        while (i<j && arr[i]<tmp) {
+          i++
+        }
+        arr[j] = arr[i]      
+    }
+    arr[i] = tmp
+    quickSort(arr,left,i-1)
+    quickSort(arr,i+1,right)
 }
-
-const arr = [1,2,3,4,5]
-
-console.log(func(arr, 5))
+var arr = [5,4,3,2,1]
+quickSort(arr)
+console.log(arr)
