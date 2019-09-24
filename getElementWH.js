@@ -1,35 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
 
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-    }
-    .middle {
-        width: 100px;
-        height: 100px;
-        background: red;
-        margin: 100px;
-        padding: 30px;
-        border: 20px solid yellow;
-    }
-</style>
 
-<body>
-
-    <div class="middle"></div>
-
-    <script type="text/javascript">
-
-    function getElementWHByOffset(element) {
+function getElementWHByOffset(element) {
     if (element) {
         const width = element.offsetWidth
         const height = element.offsetHeight
@@ -37,21 +9,17 @@
         const getLeftTop = function (pos) {
             pos = typeof pos === 'string' && pos === 'top' ? 'offsetTop' : 'offsetLeft'
 
-            let actual = element[pos]
-            let current = element.offsetParent
+            const actual = element[pos]
+            const current = actual.offsetParent
 
             while(current !== null) {
                 const borderWidth = pos === 'offsetLeft'
                                         ? window.getComputedStyle(current).borderLeftWidth
                                         : window.getComputedStyle(current).borderTopWidth
-                                        console.log(borderWidth)
-                                        console.log(current[pos])
 
                 actual += current[pos] + parseInt(borderWidth, 10)
                 current = current.offsetParent
             }
-            
-            return actual
         }
 
         const left = getLeftTop('left')
@@ -79,10 +47,3 @@ function getElementWHByRect(element) {
 }
 
 
-    const ele = document.querySelector('.middle')
-    console.log(getElementWHByOffset(ele))
-    console.log(getElementWHByRect(ele))
-    </script>
-</body>
-
-</html>
