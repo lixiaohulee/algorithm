@@ -20,6 +20,8 @@ function getElementWHByOffset(element) {
                 actual += current[pos] + parseInt(borderWidth, 10)
                 current = current.offsetParent
             }
+
+            return actual
         }
 
         const left = getLeftTop('left')
