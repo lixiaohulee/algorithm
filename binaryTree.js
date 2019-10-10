@@ -110,8 +110,8 @@ const arr = [1,3,653,2,6,7,3,7,8,4,3,7,4,3]
 
 const root = createBinaryTree(arr)
 
-mediumOrder(root)
-// preordering(root)
+// mediumOrder(root)
+preordering(root)
 // postOrder(root)
 
 

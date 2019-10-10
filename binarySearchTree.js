@@ -103,3 +103,25 @@ function levelOrder(root) {
 }
 
 console.log(levelOrder(root))
+
+
+
+
+//
+function f(root) {
+    let queue = [root]
+    while(queue.length !== 0) {
+        const node = queue.shift()
+        if(node.isStart) console.log(',')
+        console.log(node.val)
+        if(node.left) {
+          queue.push(node.left)
+          node.left.isStart = true
+        }
+        if(node.right) {
+          queue.push(node.right)
+          if(node.left === null) node.right.isStart = true
+        }
+    }
+}
+f(root)
