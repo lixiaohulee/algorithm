@@ -1,25 +1,42 @@
-function quickSort(arr,left=0, right=arr.length-1) {
-    var i=left
-    var j=right
-    var tmp = arr[i]
-    if(left>right){
-        return
+
+
+
+
+
+
+
+class Super {
+    constructor(name, age) {
+        this.name = name
+        this.age = age
     }
-    
-    while(i<j){
-        while (i<j && arr[j]>tmp) {
-          j--
-        }     
-        arr[i] = arr[j]
-        while (i<j && arr[i]<tmp) {
-          i++
-        }
-        arr[j] = arr[i]      
+
+    sayName() {
+        console.log(this.name)
+        console.log(this.age)
     }
-    arr[i] = tmp
-    quickSort(arr,left,i-1)
-    quickSort(arr,i+1,right)
+
+    // static sayAge() {
+    //     this.sayName()
+    // }
 }
-var arr = [5,4,3,2,1]
-quickSort(arr)
-console.log(arr)
+
+
+function func() {}
+
+
+
+
+
+console.log(Object.prototype.toString.call(true))
+
+
+
+const s = new Super('lixiaohu', 222)
+
+s.sayName()
+// s.sayAge()
+// Super.sayAge()
+
+console.log(Super === Super.prototype.constructor)
+console.log(Super.prototype)
