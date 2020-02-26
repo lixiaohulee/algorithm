@@ -20,7 +20,7 @@
  */
 
 
- console.log(33)
+ console.log(3)
 
 
 const PEDNING = 'pending'
