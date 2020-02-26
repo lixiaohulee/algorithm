@@ -20,6 +20,9 @@
  */
 
 
+ console.log(33)
+
+
 const PEDNING = 'pending'
 const FULFILLED = 'fulfilled'
 const REJECTED = 'rejected'
