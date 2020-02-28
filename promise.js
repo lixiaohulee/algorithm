@@ -23,6 +23,9 @@ const FULFILLED = 'fulfilled'
 const REJECTED = 'rejected'
 const PENDING = 'pending'
 
+
+console.log(333)
+
 function Promise(executor) {
     if (typeof executor !== 'function') {
         throw new TypeError('promise constructor must receive a function')
