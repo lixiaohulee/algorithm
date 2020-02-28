@@ -19,30 +19,31 @@
  *   就走下一个then的成功，如果失败，就走下一个then的失败
  */
 
-
-
-
-const PEDNING = 'pending'
 const FULFILLED = 'fulfilled'
 const REJECTED = 'rejected'
-
+const PENDING = 'pending'
 
 function Promise(executor) {
+    if (typeof executor !== 'function') {
+        throw new TypeError('promise constructor must receive a function')
+    }
+
     let that = this
-    that.status = PEDNING
+    that.status = 'pending'
+
     that.onFulfilled = []
     that.onRejected = []
 
     function resolve(value) {
-        if (that.status === PEDNING) {
+        if (that.status === PENDING) {
             that.status = FULFILLED
-            that.value = value 
+            that.value = value
             that.onFulfilled.forEach(fn => fn())
         }
     }
 
     function reject(reason) {
-        if (that.status === PEDNING) {
+        if (that.status === PENDING) {
             that.status = REJECTED
             that.reason = reason
             that.onRejected.forEach(fn => fn())
@@ -51,93 +52,28 @@ function Promise(executor) {
 
     try {
         executor(resolve, reject)
-    }catch (e) {
+    }catch(e) {
         reject(e)
     }
 }
 
-Promise.prototype.then = function (onFulfilled, onRejected){
+
+Promise.prototype.then = function(onFulfilled, onRejected) {
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
     onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason }
 
     let that = this
-    let promise2 = new Promise((resolve, reject) => {
+
+    let rPromise = new Promise((resolve, reject) => {
         if (that.status === FULFILLED) {
-            setTimeout(() => {
-                try {
-                    let x = onFulfilled(that.value)
-                    resolvePromise(promise2, x, resolve, reject)
-                }catch(e) {
-                    reject(e)
-                }
-            })
+            onFulfilled(that.value)
         }else if (that.status === REJECTED) {
-            setTimeout(() => {
-                try {
-                    let x = onRejected(that.reason)
-                    resolvePromise(promise2, x, resolve, reject)
-                }catch(e) {
-                    reject(e)
-                }
-            })
-        }else if (that.status === PEDNING) {
-            that.onFulfilled.push(() => {
-                setTimeout(() => {
-                    try {
-                        let x = onFulfilled(that.value)
-                        resolvePromise(promise2, x, resolve, reject)
-                    }catch(e) {
-                        reject(e)
-                    }
-                })
-            })
-            that.onRejected.push(() => {
-                try {
-                    let x = onRejected(that.reason)
-                    resolvePromise(promise2, x, resolve, reject)
-                }catch(e) {
-                    reject(e)
-                }
-            })
+            onRejected(that.reason)
+        }else if (that.status === PENDING) {
+            that.onFulfilled.push(onFulfilled)
+            that.onRejected.push(onRejected)
         }
     })
-
-    return promise2
 }
 
 
-function resolvePromise(promise2, x, resolve, reject) {
-    let that = this
-
-    if (promise2 === x) {
-        reject(new TypeError('Chainning cycle'))
-    }
-    if (x && typeof x === 'object' || typeof x === 'function') {
-        let used
-
-        try {
-            let then = x.then
-            if (typeof then === 'function') {
-                then.call(x, (y) => {
-                    if (used) return
-                    used = true
-                    resolvePromise(promise2, y, resolve, reject)
-                }, r => {
-                    if (used) return
-                    used = true
-                    reject(r)
-                })
-            }else {
-                if (used) return
-                used = true
-                resolve(x)
-            }
-        }catch(e) {
-            if (used) return
-            used = true
-            reject(e)
-        }
-    }else {
-        resolve(x)
-    }
-}
