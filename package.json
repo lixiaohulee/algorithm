@@ -1,0 +1,24 @@
+{
+  "name": "algorithm",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "axios.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "promises-aplus-tests": "promises-aplus-tests promise.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lixiaohulee/algorithm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lixiaohulee/algorithm/issues"
+  },
+  "homepage": "https://github.com/lixiaohulee/algorithm#readme",
+  "dependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+}
