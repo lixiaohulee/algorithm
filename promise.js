@@ -26,16 +26,17 @@ const REJECTED = 'rejected'
 
 function Promise(executor) {
     if (typeof executor !== 'function') {
-        throw new TypeError(`executor must be a function`)
+        throw new TypeError(` Promise resolver ${executor} is not a function`)
     }
 
+    this.status = PENDING
     this.value = undefined
     this.reason = undefined
-    this.status = PENDING
     this.onFulfilledCallbacks = []
     this.onRejectedCallbacks = []
 
-    let that = this
+
+    const that = this
     function resolve(value) {
         if (that.status === PENDING) {
             that.status = FULFILLED
@@ -59,51 +60,51 @@ function Promise(executor) {
     }
 }
 
+
 Promise.prototype.then = function(onFulfilled, onRejected) {
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
-    onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason}
-
-    const that = this
+    onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason }
 
     const promise2 = new Promise((resolve, reject) => {
-        if (that.status === FULFILLED) {
-            setTimeout(function() {
+        if (this.status === FULFILLED) {
+            setTimeout(() => {
                 try {
-                    let x = onFulfilled(that.value)
-                    resolvePromise(promise2, x, resolve,  reject)
+                    let x = onFulfilled(this.value)
+                    resolvePromsie(promise2, x, resolve, reject)
                 }catch(e) {
                     reject(e)
                 }
             })
         }
     
-        if (that.status === REJECTED) {
-            setTimeout(function() {
+        if (this.status === REJECTED) {
+            setTimeout(() => {
                 try {
-                    let x = onRejected(that.reason)
-                    resolvePromise(promise2, x, resolve,  reject)
+                    let x = onRejected(this.reason)
+                    resolvePromsie(promise2, x, resolve, reject)
                 }catch(e) {
                     reject(e)
                 }
             })
         }
     
-        if (that.status === PENDING) {
-            that.onFulfilledCallbacks.push(() => {
+        if (this.status === PENDING) {
+            this.onFulfilledCallbacks.push(() => {
                 setTimeout(() => {
                     try {
-                        let x = onFulfilled(that.value)
-                        resolvePromise(promise2, x, resolve, reject)
+                        let x = onFulfilled(this.value)
+                        resolvePromsie(promise2, x, resolve, reject)
                     }catch(e) {
                         reject(e)
                     }
-                })
+                }) 
             })
-            that.onRejectedCallbacks.push(() => {
+    
+            this.onRejectedCallbacks.push(() => {
                 setTimeout(() => {
                     try {
-                        let x = onRejected(that.reason)
-                        resolvePromise(promise2, x, resolve, reject)
+                        let x = onRejected(this.reason)
+                        resolvePromsie(promise2, x, resolve, reject)
                     }catch(e) {
                         reject(e)
                     }
@@ -112,28 +113,34 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
         }
     })
 
+
     return promise2
 }
 
+function resolvePromsie(promise2, x, resolve, reject) {
+    if (promise2 === x) {
+        throw new TypeError(`Chaining cycle detected for promise`)
+    }
 
-function resolvePromise(promise2, x, resolve, reject) {
-    if (x === promise2) reject(new TypeError('Chaining cycle detected for promsie'))
-
-    let used = false
     if (x instanceof Promise) {
         x.then(value => {
-            resolvePromise(promise2, value, resolve, reject)
-        }, reason => reject(reason))
-    }else if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+            resolvePromsie(promise2, value, resolve, reject)
+        }, reason => {
+            reject(reason)
+        })
+    }
+
+    let used = false
+    if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
         try {
             let then = x.then
             if (typeof then === 'function') {
-                then.call(x, value => {
+                then.call(x, value=> {
                     if (used) return
                     used = true
-                    resolvePromise(promise2, value, resolve, reject)
+                    resolvePromsie(promise2, value, resolve, reject)
                 }, reason => {
-                    if (used) return 
+                    if (used) return
                     used = true
                     reject(reason)
                 })
@@ -149,33 +156,52 @@ function resolvePromise(promise2, x, resolve, reject) {
             reject(e)
         }
     }else {
-        if (used) return
-        used = true
         resolve(x)
     }
 }
 
 
 
-console.log(1)
-new Promise((resolve, reject) => {
-    console.log(2)
 
-    // resolve(3)
+// new Promise((resolve, reject) => {
+//     console.log(33)
+
+//     setTimeout(() => {
+//         resolve(44)
+//     }, 3000)
+// }).then(value => console.log(value)).then(res => console.log(res))
 
 
-    setTimeout(() => {
-        resolve(3)
-    }, 5000)
-}).then(res => {
-    console.log(res)
-    // resolve(res)
-    return new Promise((resolve, reject) => {
-        resolve(6)
-    }).then(res => console.log(res))
-}).then(res => res).then(res => console.log(res))
-console.log(4)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = Promise
 
 Promise.defer = Promise.deferred = function () {
     let dfd = {};
@@ -185,9 +211,3 @@ Promise.defer = Promise.deferred = function () {
     });
     return dfd;
 }
-
-
-module.exports = Promise
-
-
-
