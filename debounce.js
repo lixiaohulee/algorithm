@@ -21,7 +21,7 @@ function debounce(func, delay) {
         var _this = this
         timer = setTimeout(function() {
             clearTimeout(timer)
-            return func.apply(_this, args)
+            return func.apply(_this, args)  
         }, delay)
     }
 }

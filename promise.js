@@ -178,11 +178,37 @@ function resolvePromise(promise2, x, resolve, reject) {
 
 module.exports = Promise
 
-Promise.defer = Promise.deferred = function () {
-    let dfd = {};
-    dfd.promise = new Promise((resolve, reject) => {
-        dfd.resolve = resolve;
-        dfd.reject = reject;
-    });
-    return dfd;
-}
+// Promise.defer = Promise.deferred = function () {
+//     let dfd = {};
+//     dfd.promise = new Promise((resolve, reject) => {
+//         dfd.resolve = resolve;
+//         dfd.reject = reject;
+//     });
+//     return dfd;
+// }
+
+
+console.log(11)
+
+setTimeout(() => {
+    console.log(22)
+})
+
+new Promise((resolve, reject) => {
+    console.log(33)
+    resolve(44)
+}).then(res => console.log(res))
+
+new Promise((resolve, reject) => {
+    console.log(55)
+    resolve(66)
+}).then(res => console.log(res)).then(res => {
+    console.log(66 + '+')
+})
+
+setTimeout(() => {
+    console.log(77)
+})
+
+console.log(88)
+

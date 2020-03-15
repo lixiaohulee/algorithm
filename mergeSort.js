@@ -2,28 +2,47 @@
 
 
 
+const merge = (left, right) => {
+    let i = 0,
+        j = 0,
+        res = []
 
-
-const mergeSort = arr => {
-    const middleIndex = parseInt(arr.length / 2,10)
-
-    const arr1 = arr.slice(0, middleIndex)
-    const arr2 = arr.slice(middleIndex)
-
-    const res = []
-
-    for(let i = 0; i <= arr1.length - 1; i++) {
-        for(let j = 0; j <= arr2.length - 1; j++) {
-            if (arr1[i] < arr2[j]) {
-                res.push(arr1[i])
-                break
-            }else {
-                res.push(arr2[j])
-            }
+    while(i < left.length && j < right.length) {
+        if (left[i] < right[j]) {
+            res.push(left[i])
+            i++
+        }else {
+            res.push(right[j])
+            j++
         }
     }
+
+    while(i < left.length) {
+        res.push(left[i])
+        i++
+    }
+
+    while(j < right.length) {
+        res.push(right[j])
+        j++
+    }
+
+    return res
 }
 
+const mergeSort = (arr) => {
+    if (arr.length === 1) return arr
+    let mid = parseInt(arr.length / 2, 10)
+    let left = mergeSort(arr.slice(0,mid))
+    let right = mergeSort(arr.slice(mid))
+
+    return merge(left, right)
+}
+
+
+let arr = [5,3,66,3,24,7,33,5,6,7]
+
+console.log(mergeSort(arr))
 
 
 
