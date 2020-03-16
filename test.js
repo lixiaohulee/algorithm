@@ -3,40 +3,14 @@
 
 
 
+let arr = [1,2,3,4,5,6,7]
 
 
-class Super {
-    constructor(name, age) {
-        this.name = name
-        this.age = age
-    }
+arr.length = arr.length - 1
 
-    sayName() {
-        console.log(this.name)
-        console.log(this.age)
-    }
-
-    // static sayAge() {
-    //     this.sayName()
-    // }
-}
+console.log(arr)
 
 
-function func() {}
+arr[1] = arr[0]
 
-
-
-
-
-console.log(Object.prototype.toString.call(true))
-
-
-
-const s = new Super('lixiaohu', 222)
-
-s.sayName()
-// s.sayAge()
-// Super.sayAge()
-
-console.log(Super === Super.prototype.constructor)
-console.log(Super.prototype)
+console.log(arr)
