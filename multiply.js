@@ -3,16 +3,13 @@
  * @param {number} B
  * @return {number}
  */
-let res  = 0
 var multiply = function(A, B) {
-    if (A === 0) {
-        return 
+    if (A === 1) {
+        return B
     }
 
-    res += B 
-    multiply(A-1, B)
-
-    return res
+    return multiply(A-1, B) + B
 };
 
-console.log(multiply(7, 4))
+
+console.log(multiply(900,6))
