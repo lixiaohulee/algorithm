@@ -8,44 +8,14 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
-    <!-- <input type="text" size="30" placeholder="adfsdfs" type="month" /> -->
 
-    <select>
-        <option>你好</option>
-        <option>sdf</option>
-        <option>你好4</option>
-        <option>你好5</option>
-    </select>
+    <iframe name="richedit" style="height: 100px; width: 100px;" src="./test.html"></iframe>
     <script>
 
 
         window.onload = function() {
-            const input = document.querySelector('input')
-
-            input.select()
-
-            // input.focus()
-            console.log(input.selectionStart, input.selectionEnd)
-
-            // input.setSelectionRange(input.selectionStart, input.)
-
-            input.onkeypress = function(e) {
-                if (/\d/.test(String.fromCharCode(e.charCode))) {
-                    console.log(333)
-                }else {
-                    e.preventDefault()
-                }
-            }
-
-
-            input.onbeforecopy = function(e) {
-                console.log(e.clipboardData.getData('text'))
-            }
-
-
-            input.oncopy = function(e) {
-                console.log(e.clipboardData.getData('text/plain'))
-            }
+            frames['richedit'].document.designMode = 'on'
+            frames['richedit'].document.execCommand('italic', false, null)
         }
     </script>
 </body>
