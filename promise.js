@@ -70,6 +70,7 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
             setTimeout(() => {
                 try {
                     let x = onFulfilled(this.value)
+                    console.log(7777)
                     resolvePromise(promise2, x, resolve, reject)
                 }catch(e) {
                     reject(e)
@@ -116,6 +117,7 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
 }
 
 function resolvePromise(promise2, x, resolve, reject) {
+    console.log(6666666666)
     if (promise2 === x) throw new TypeError('promise2 === x')
 
     if (x instanceof Promise) {

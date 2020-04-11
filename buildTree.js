@@ -12,22 +12,18 @@
  */
 var buildTree = function(preorder, inorder) {
 
-
     if (preorder.length === 0 && inorder.length === 0) {
         return null
     }
-    let root = new TreeNode(preorder[0])
+    const root = new TreeNode(preorder[0])
 
-    let mid = inorder.indexOf(root.val)
-
-    let inLeft = inorder.slice(0, mid) 
-    let inRight = inorder.slice(mid + 1)
-
-    let preLeft = preorder.slice(1,mid+1)
-    let preRight = preorder.slice(mid+1)
-
-    root.left = buildTree(preLeft, inLeft)
-    root.right = buildTree(preRight, inRight)
+    for(let i = 0; i < inorder.length; i++) {
+        if (inorder[i] === root.val) {
+            root.left = buildTree(preorder.slice(1, i+1), inorder.slice(0,i))
+            root.right = buildTree(preorder.slice(i+1),inorder.slice(i+1))
+            break
+        }
+    }
 
     return root
 };
