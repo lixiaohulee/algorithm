@@ -6,21 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-
-        body {
-            background: red;
-        }
     </style>
 </head>
 <body>
-    <div>李小虎</div>
-    <div>李小虎</div>
-    <div>李小虎</div>
-    <div>李小虎</div>
-    <div>李小虎</div>
-    <div>李小虎</div>
-    <div>李小虎</div>
+    <canvas width="300" height="300" style="background: red;">your browser can not support canvas</canvas>
+    <script>
 
-    <p>skj kjs dfkjsldjf slkdjflsdjf s</p>
+        window.onload = function() {
+            const drawing = document.getElementsByTagName('canvas')[0]
+
+            if (drawing.getContext) {
+                const context = drawing.getContext('2d')
+                
+
+                context.fillStyle = '#ffffff'
+                context.strokeStyle = 'yellow'
+                context.fillRect(0,0,40,30)
+
+                context.strokeRect(0,0,40, 40)
+
+                context.clearRect(0,0,10,10)
+            }
+        }
+    </script>
 </body>
 </html>
