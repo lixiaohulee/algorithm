@@ -6,58 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+        .box {
+            height: 300px;
+            background: red;
+        }
     </style>
 </head>
 <body>
 
-    <img src="./test.png">
-    <canvas width="300" height="300" style="background: red;">your browser can not support canvas</canvas>
+    <div class="box">box</div>
+    <iframe width="100%" height="300px" style="margin-top: 20px;" src="file:///Users/lixiaohu/WebstormProjects/demos/algorithm/index.html" sandbox="allow-scripts"></iframe>
     <script>
-
         window.onload = function() {
-            const drawing = document.getElementsByTagName('canvas')[0]
-
-            if (drawing.getContext) {
-                const context = drawing.getContext('2d')
-
-                const img = document.querySelector('img')
-
-                context.drawImage(img,0,0)
-                
-                const imageData = context.getImageData(0, 0, img.width, img.height)
-                const dat = imageData.data
-
-
-                for(let i = 0; i <= data.length; i+=4) {
-                    const red = data[i]
-                    const green = data[i+1]
-                    const blue = data[i+2]
-                    const alpha = data[i+3]
-
-                    const aver = Math.floor((red + green + blue) / 3)
-                    
-                    data[i] = aver
-                    data[i+1] = aver
-                    data[i+2] = aver
-                    
-                }
-
-                imageData.data = data
-                context.putImageData(imageData, 0, 0)
-
-
-                // const pattern = context.createPattern(img, 'repeat')
-
-                // const gradient = context.createLinearGradient(30, 30, 70, 70)
-
-                // gradient.addColorStop(0, 'white')
-                // gradient.addColorStop(1, 'red')
-
-                // context.fillStyle = pattern
-
-                // context.fillRect(0, 0, 200, 200)
-
-            }
+            const iframeEle = document.querySelector('iframe')
+            const contentWindow = iframeEle.contentWindow
+            
+            contentWindow.postMessage('hello lixiaohu', "file:///Users/lixiaohu/WebstormProjects/demos/algorithm/index.html")
         }
     </script>
 </body>

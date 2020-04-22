@@ -7,16 +7,34 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
+<style>
+    .box {
+        height: 200px;
+        background: blue;
+    }
+</style>
 <body>
 
-    <iframe name="richedit" style="height: 100px; width: 100px;" src="./test.html"></iframe>
+    <div class="box"></div>
+
+    <!-- <iframe name="richedit" style="height: 100px; width: 100px;" src="./test.html"></iframe> -->
     <script>
 
-
         window.onload = function() {
-            frames['richedit'].document.designMode = 'on'
-            frames['richedit'].document.execCommand('italic', false, null)
+            window.onmessage = function (e) {
+            if (e.origin === 'file:///Users/lixiaohu/WebstormProjects/demos/algorithm/test.html') {
+                console.log(e.data, e.origin, e.source)
+            }
+
+            }
         }
+
+
+
+        // window.onload = function() {
+        //     frames['richedit'].document.designMode = 'on'
+        //     frames['richedit'].document.execCommand('italic', false, null)
+        // }
     </script>
 </body>
 </html>
