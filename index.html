@@ -14,27 +14,21 @@
     }
 </style>
 <body>
-
-    <div class="box"></div>
-
-    <!-- <iframe name="richedit" style="height: 100px; width: 100px;" src="./test.html"></iframe> -->
+    <img src="./imgs/avatar.png" alt="" width="200px" height="300px"/>
     <script>
 
         window.onload = function() {
-            window.onmessage = function (e) {
-            if (e.origin === 'file:///Users/lixiaohu/WebstormProjects/demos/algorithm/test.html') {
-                console.log(e.data, e.origin, e.source)
-            }
-
-            }
+            const img = document.querySelector('img')
+            img.addEventListener('dragstart', e=> {
+                console.log(e, 'start')
+            }),
+            img.addEventListener('drag', e => {
+                console.log(e)
+            }),
+            img.addEventListener('dragend', e => {
+                console.log(e, 'end')
+            })
         }
-
-
-
-        // window.onload = function() {
-        //     frames['richedit'].document.designMode = 'on'
-        //     frames['richedit'].document.execCommand('italic', false, null)
-        // }
     </script>
 </body>
 </html>
