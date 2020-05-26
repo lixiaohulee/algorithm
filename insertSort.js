@@ -34,3 +34,15 @@ let arr = [9,8,7,6,5,4,3,2]
 insertSort(arr)
 
 console.log(arr)
+
+
+console.log('hello world ')
+
+
+
+
+
+
+
+
+

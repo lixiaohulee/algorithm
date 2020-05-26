@@ -16,3 +16,5 @@ function deleteBlankSpace(str) {
 const url = 'as d  f as d  f as   dssada f'
 
 console.log(deleteBlankSpace(url))
+
+helloe

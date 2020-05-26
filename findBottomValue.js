@@ -28,3 +28,6 @@ var findBottomLeftValue = function(root) {
 
     return res[res.length -1][0]
 };
+
+findBottomLeftValue(Object)
+
