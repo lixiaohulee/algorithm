@@ -12,22 +12,56 @@
         height: 200px;
         background: blue;
     }
+    #box1 {
+        width: 500px;
+        height: 400px;
+        background: red;
+        margin-top: 100px;
+    }
 </style>
 <body>
-    <img src="./imgs/avatar.png" alt="" width="200px" height="300px"/>
+        <a href="http://www.w3school.com.cn">W3School</a>    <img src="./imgs/avatar.png" alt="" width="200px" height="300px"/>
+    <div id="box1"></div>
     <script>
 
         window.onload = function() {
             const img = document.querySelector('img')
             img.addEventListener('dragstart', e=> {
                 console.log(e, 'start')
+                e.dataTransfer.setData('url', 'https://www.baidu.com')
             }),
             img.addEventListener('drag', e => {
-                console.log(e)
+                // console.log(e)
+                e.dataTransfer.setData('url', 'sdfasfasfas')
             }),
             img.addEventListener('dragend', e => {
                 console.log(e, 'end')
             })
+
+
+            const box = document.getElementById('box1')
+            box.addEventListener('dragenter', e => {
+                e.preventDefault()
+                console.log(e, 'enter')
+                // e.dataTransfer.clearData()
+                e.dataTransfer.getData('url')
+            })
+            
+            box.addEventListener('dragover', e => {
+                e.preventDefault()
+                // console.log(e, 'over')
+            })
+
+            box.addEventListener('dragleave', e => {
+                console.log(e, 'leave')
+            } )
+
+            box.addEventListener('drop', e => {
+                console.log(333333)
+                console.log(e.dataTransfer.getData('url'))
+                console.log(e)
+            })
+            
         }
     </script>
 </body>
