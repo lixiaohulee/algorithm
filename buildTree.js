@@ -27,3 +27,7 @@ var buildTree = function(preorder, inorder) {
 
     return root
 };
+
+
+console.log(nihaosdkjdfkjd fkjd )
+
