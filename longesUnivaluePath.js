@@ -48,3 +48,39 @@ root.right.left.left = new Node(5)
 
 longestUnivaluePath(root)
 console.log(res)
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var longestUnivaluePath = function(root) {
+    if (root === null) return 0
+    let longest = 0
+    function getMax(root, val) {
+        if (root === null) return 0
+        let left = getMax(root.left, root.val)
+        let right = getMax(root.right, root.val)
+
+        let arrowLeft = 0
+        let arrowRight = 0
+
+        if (root.left && root.left.val === root.val) arrowLeft = left + 1
+        if (root.right && root.right.val === root.val) arrowRight = right + 1
+
+        longest = Math.max(longest, arrowRight + arrowLeft)
+        return Math.max(arrowLeft, arrowRight)
+    }
+
+    getMax(root, root.val)
+    return longest
+};
