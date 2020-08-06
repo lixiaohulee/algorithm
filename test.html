@@ -13,16 +13,17 @@
     </style>
 </head>
 <body>
-
-    <div class="box">box</div>
-    <iframe width="100%" height="300px" style="margin-top: 20px;" src="file:///Users/lixiaohu/WebstormProjects/demos/algorithm/index.html" sandbox="allow-scripts"></iframe>
-    <script>
-        window.onload = function() {
-            const iframeEle = document.querySelector('iframe')
-            const contentWindow = iframeEle.contentWindow
-            
-            contentWindow.postMessage('hello lixiaohu', "file:///Users/lixiaohu/WebstormProjects/demos/algorithm/index.html")
-        }
-    </script>
+    <div class="box"></div>
+<script>
+document.getElementsByClassName('box')[0].style.backgroundColor = 'yellow'
+new Promise((resolve, reject) => {
+    resolve()
+}).then(res => {
+    console.log(document.getElementsByClassName('box')[0].style.backgroundColor, 'then')
+})
+setTimeout(() => {
+    console.log(document.getElementsByClassName('box')[0].style.backgroundColor, 'timer')
+}, 0);
+</script>
 </body>
 </html>
