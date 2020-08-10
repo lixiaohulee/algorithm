@@ -15,15 +15,9 @@
 <body>
     <div class="box"></div>
 <script>
-document.getElementsByClassName('box')[0].style.backgroundColor = 'yellow'
-new Promise((resolve, reject) => {
-    resolve()
-}).then(res => {
-    console.log(document.getElementsByClassName('box')[0].style.backgroundColor, 'then')
-})
-setTimeout(() => {
-    console.log(document.getElementsByClassName('box')[0].style.backgroundColor, 'timer')
-}, 0);
+
+
+    alert(window.navigator.userAgent)
 </script>
 </body>
 </html>
