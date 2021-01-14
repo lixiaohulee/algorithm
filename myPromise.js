@@ -130,3 +130,9 @@ MyPromise.defer = MyPromise.deferred = function () {
   });
   return dfd;
 }
+
+
+const p = new MyPromise((resolve, reject) => {
+  console.log(3333);
+  resolve(33333)
+})
