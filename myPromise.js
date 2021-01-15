@@ -16,14 +16,14 @@ function MyPromise(execctor) {
     if (that.status === 'padding') {
       that.status = 'fulfilled';
       this.value = res;
-      that.onFulFilledCb.forEach(cb => cb(res));
+      that.onFulFilledCb.forEach(cb => cb());
     }
   }
   function reject(reason) {
     if (that.status === 'padding') {
       that.status = 'rejected';
       that.reason = reason;
-      that.onRejectedCb.forEach(cb => cb(err));
+      that.onRejectedCb.forEach(cb => cb());
     }
   }
 
@@ -91,8 +91,8 @@ function resolvePromise(promise, x, resolve, reject) {
   if (promise === x) {
     reject(new TypeError(x));
   } 
+  let used = false;
   if (x && (typeof x === 'object' || typeof x === 'function' )) {
-    let used = false;
     try {
       let then = x.then;
       if (typeof then === 'function') {
@@ -122,6 +122,25 @@ function resolvePromise(promise, x, resolve, reject) {
   }
 }
 
+
+MyPromise.resolve = function(value) {
+  if (value instanceof MyPromise) return value;
+  return new MyPromise((resolve, reject) => {
+    if (value && value.then && typeof value.then === 'function') {
+      setTimeout(() => {
+        try {
+          value.then(resolve, reject);
+        } catch(e) {
+          reject(e);
+        }
+      })
+    } else {
+      resolve(value);
+    }
+  })
+}
+
+
 MyPromise.defer = MyPromise.deferred = function () {
   let dfd = {};
   dfd.promise = new MyPromise((resolve, reject) => {
@@ -131,8 +150,3 @@ MyPromise.defer = MyPromise.deferred = function () {
   return dfd;
 }
 
-
-const p = new MyPromise((resolve, reject) => {
-  console.log(3333);
-  resolve(33333)
-})
