@@ -150,3 +150,17 @@ MyPromise.defer = MyPromise.deferred = function () {
   return dfd;
 }
 
+
+
+// Promise.resolve(4).then(res => {
+//   throw new TypeError('333')
+// }, err => {
+// }).then(res => res, err => { throw err }).catch(err => console.log(err, 9999))
+// Promise.reject(33).then(r => console.log(r), e => {
+//   console.log(e, 88)).then(r => console.log(r), e => console.log(e, 77));
+
+
+console.log(1);
+setTimeout(() => console.log(2), 0);
+Promise.resolve(3).then(res => console.log(res)).then(res =` `> console.log(res)).then(res => console.log(res))
+
