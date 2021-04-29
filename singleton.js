@@ -1,25 +1,28 @@
 
 
 
-var CreateDiv = (function() {
-    var instance = null
-    var CreateDiv = function(html) {
-        if (instance) return instance
-        this.html = html
-        this.init()
 
-        return instance = this
+
+
+
+function getSingle(func) {
+    let res = null;
+    return function() {
+        return res || func.apply(this, arguments);
     }
+}
 
-    CreateDiv.prototype.init = function() {
-        console.log(3)
-    }
+function createDiv(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    div.style.display = 'none';
+    document.body.appendChild(div);
+}
 
-    return CreateDiv
-})()
 
-const a = new CreateDiv(3)
-const b = new CreateDiv(54)
+const createModal = getSingle(createDiv);
+document.querySelector('button').addEventListener('click', function(e) {
+    const modal = createModal('lixiaohu');
 
-console.log(a === b)
-console.log(a.html, a.html)
+    modal.style.display = 'block';
+}, false)
