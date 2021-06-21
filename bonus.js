@@ -74,3 +74,29 @@ const getBonus = function(level, salary) {
 
 
 console.log(getBonus('B', 26000));
+
+
+// 实际上在JavaScript中策略模式还能变成更简洁的这样 
+// 一等函数对象的策略模式
+
+function S(salary) {
+  return salary * 4;
+}
+
+function A(salary) {
+  return salary * 3;
+}
+
+function B(salary) {
+  return salary * 2;
+}
+
+
+function calculateBonus(levelFunc, salary) {
+  if (typeof levelFunc === 'function') {
+    return levelFunc(salary);
+  }
+}
+
+
+console.log(calculateBonus(B,26000));
