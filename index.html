@@ -1,58 +1,25 @@
-<!doctype html>
-<html lang="zh">
-<head>	
-	<meta http-equiv="content-type"  content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta http-equiv="Cache-Control" content="no-cache" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-<style>
-    .box {
-        height: 200px;
-        background: blue;
-    }
-    #box1 {
-        width: 500px;
-        height: 400px;
-        background: red;
-        margin-top: 100px;
-    }
-</style>
 <body>
-    <button>show Modal</button>
-    <script>
-        window.onload = function() {
-            
+    <script type="module">
+        console.log(3333);
+        import binarySearch from './binarySearch3.js';
+        
+        console.log(binarySearch);
 
 
+        const arr = [1,3,4,5,6];
+        const target = 1;
 
 
-
-
-function getSingle(func) {
-    let res = null;
-    return function() {
-        return res || (res = func.apply(this, arguments));
-    }
-}
-
-function createDiv(html) {
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    div.style.display = 'none';
-    document.body.appendChild(div);
-    return div;
-}
-
-
-const createModal = getSingle(createDiv);
-document.querySelector('button').addEventListener('click', function(e) {
-    const modal = createModal('lixiaohu');
-
-    modal.style.display = 'block';
-}, false)
-        }
+        console.log(binarySearch(arr, target));
     </script>
 </body>
 </html>
