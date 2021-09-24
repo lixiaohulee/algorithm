@@ -34,3 +34,6 @@ var newFunc = bind(testFunc, o)
 console.log(newFunc === testFunc)
 
 console.log(newFunc(345, 4545))
+
+
+console.log(0)
