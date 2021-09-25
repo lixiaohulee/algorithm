@@ -21,3 +21,14 @@ const person = {
 
 const p = create(null)
 
+
+
+
+
+
+function create(target) {
+    function Func() {}
+    Func.prototype = target;
+
+    return new Func();
+} 

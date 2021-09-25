@@ -60,3 +60,5 @@ function throttleTime(func, delay) {
 
 
 
+
+
