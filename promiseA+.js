@@ -15,8 +15,8 @@ function Promise(executor) {
   self.value = undefined;
   self.reason = undefined;
 
-  self.onFulfilled = [];
-  self.onRejected = [];
+  self.onFulfilledCb = [];
+  self.onRejectedCb = [];
 
 
   function resolve(value) {
@@ -24,7 +24,7 @@ function Promise(executor) {
       self.status = FULFILLED;
       self.value = value;
       // self.onFulfilled.forEach((callback) => callback(value));
-      self.onFulfilled.forEach(callback => callback());
+      self.onFulfilledCb.forEach(callback => callback());
     }
   }
 
@@ -33,7 +33,7 @@ function Promise(executor) {
       self.status = REJECTED;
       self.reason = reason;
       // self.onRejected.forEach((callback) => callback(reason));
-      self.onRejected.forEach(callback => callback());
+      self.onRejectedCb.forEach(callback => callback());
     } 
   }
 
@@ -42,4 +42,31 @@ function Promise(executor) {
   } catch(e) {
     reject(e);
   }
+}
+
+Promise.prototype.then = function(onFulfilled, onRejected) {
+  onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
+  onRejected = typeof onRejected === 'function' ? onRejected : (reason) => reason;
+
+  const self = this;
+
+  return new Promise(function(resolve, reject) {
+    if (self.status === FULFILLED) {
+      const x = onFulfilled(self.value);
+    }
+
+    if (self.status === REJECTED) {
+      const x = onRejected(self.reason);
+    }
+
+    if (self.status === PENDING) {
+      self.onFulfilledCb.push(function() {
+        const x = onFulfilled(self.value);
+      })
+
+      self.onRejectedCb.push(function() {
+        const x = onRejectedCb(self.reason);
+      })
+    }
+  })
 }
