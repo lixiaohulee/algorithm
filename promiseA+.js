@@ -46,27 +46,105 @@ function Promise(executor) {
 
 Promise.prototype.then = function(onFulfilled, onRejected) {
   onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
-  onRejected = typeof onRejected === 'function' ? onRejected : (reason) => reason;
+  onRejected = typeof onRejected === 'function' ? onRejected : (reason) => { throw reason };
 
   const self = this;
 
-  return new Promise(function(resolve, reject) {
+  const promise1 = new Promise(function(resolve, reject) {
     if (self.status === FULFILLED) {
-      const x = onFulfilled(self.value);
-    }
-
-    if (self.status === REJECTED) {
-      const x = onRejected(self.reason);
-    }
-
-    if (self.status === PENDING) {
-      self.onFulfilledCb.push(function() {
-        const x = onFulfilled(self.value);
+      setTimeout(function() {
+        try {
+          const x = onFulfilled(self.value);
+          resolvePromise(promise1, x, resolve, reject);
+        } catch(e) {
+          reject(e);
+        }
       })
+    } else if (self.status === REJECTED) {
+      setTimeout(function() {
+        try {
+          const x = onRejected(self.reason);
+          resolvePromise(promise1, x, resolve, reject);
+        } catch(e) {
+          reject(e);
+        }
+      })
+    } else if (self.status === PENDING) {
+      self.onFulfilledCb.push(function() {
+        setTimeout(function() {
+          try {
+            const x = onFulfilled(self.value);
+            resolvePromise(promise1, x, resolve, reject);
+          } catch(e) {
+            reject(e);
+          }
+        })
+      });
 
       self.onRejectedCb.push(function() {
-        const x = onRejectedCb(self.reason);
+        setTimeout(function() {
+          try {
+            const x = onRejected(self.reason);
+            resolvePromise(promise1, x, resolve, reject);
+          } catch(e) {
+            reject(e);
+          }
+        })
       })
     }
-  })
+  });
+
+  return promise1;
+}
+
+function resolvePromise(promise1, x, resolve, reject) {
+  const self = this;
+  
+  if (promise1 === x) {
+    reject(new TypeError('Chaining cycle'));
+  }
+
+  if (x && typeof x === 'object' || typeof x === 'function') {
+    let used = false;
+
+    try {
+      const then = x.then;
+
+      if (typeof then === 'function') {
+        then.call(x, (y) => {
+          if (used) return;
+          used = true;
+          resolvePromise(promise1, y, resolve, reject);
+        }, (r) => {
+          if (used) return;
+          used = true;
+          reject(r);
+        })
+      } else {
+        if (used) return;
+        used = true;
+        resolve(x);
+      }
+    } catch(e) {
+      if (used) return;
+      used = true;
+      reject(e);
+    }
+    
+  } else {
+    resolve(x);
+  }
+}
+
+
+module.exports = Promise;
+
+
+Promise.defer = Promise.deferred = function () {
+  let dfd = {};
+  dfd.promise = new Promise((resolve, reject) => {
+      dfd.resolve = resolve;
+      dfd.reject = reject;
+  });
+  return dfd;
 }

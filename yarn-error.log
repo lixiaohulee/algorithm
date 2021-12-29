@@ -1,0 +1,49 @@
+Arguments: 
+  /Users/lixiaohu/.nvm/versions/node/v14.17.6/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js
+
+PATH: 
+  /Users/lixiaohu/.nvm/versions/node/v14.17.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  14.17.6
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/Users/lixiaohu/WebstormProjects/demos/algorithm/node_modules/available-typed-arrays'
+
+npm manifest: 
+  {
+    "name": "algorithm",
+    "version": "1.0.0",
+    "description": "---",
+    "main": "axios.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "promises-aplus-tests": "promises-aplus-tests promiseA+.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/lixiaohulee/algorithm.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/lixiaohulee/algorithm/issues"
+    },
+    "homepage": "https://github.com/lixiaohulee/algorithm#readme",
+    "dependencies": {
+      "promises-aplus-tests": "^2.1.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
