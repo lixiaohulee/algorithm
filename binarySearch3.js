@@ -15,7 +15,7 @@ function binarySearch(target, arr) {
     if (target > arr[mid]) {
       left = mid + 1;
     }
-  }n 
+  }
 
   return -1;
 }
