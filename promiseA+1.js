@@ -126,6 +126,33 @@ function resolvePromise(promise2, x, resolve, reject) {
   }
 }
 
+
+Promise.all = function(promiseArr) {
+
+  const isIterator = (obj) => {
+    return typeof obj === 'object' && obj !== null && typeof obj[Symbol.iterator] === 'function';
+  }
+
+  return new Promise((resolve,reject) => {
+    if (isIterator(promiseArr)) {
+      reject(new TypeError(`TypeError: ${obj} is not iterable (cannot read property Symbol(Symbol.iterator))`));
+    }
+
+    const res = [];
+
+    for(let i = 0; i < promiseArr.length; i++) {
+      Promise.resolve(promiseArr[i]).then((value) => {
+        if (res.length + 1 === promiseArr.length) {
+          res.push(value);
+          resolve(res);
+        }
+      }, (err) => {
+        reject(err);
+      })
+    }
+  })
+}
+
 module.exports = Promise;
 
 
