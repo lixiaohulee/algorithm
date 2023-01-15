@@ -11,13 +11,14 @@
  *     }
  * }
  */
-function sortedArrayToBST(nums) {
+function constructMaximumBinaryTree(nums) {
     if (nums.length === 0)
         return null;
-    var mid = Math.floor(nums.length / 2);
-    var root = new TreeNode(nums[mid]);
-    root.left = sortedArrayToBST(nums.slice(0, mid));
-    root.right = sortedArrayToBST(nums.slice(mid + 1));
+    var max = Math.max.apply(Math, nums);
+    var maxIndex = nums.findIndex(function (num) { return num === max; });
+    var root = new TreeNode(max);
+    root.left = constructMaximumBinaryTree(nums.slice(0, maxIndex));
+    root.right = constructMaximumBinaryTree(nums.slice(maxIndex + 1));
     return root;
 }
 ;
