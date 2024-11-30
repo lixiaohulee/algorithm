@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>didi</title>
+  <style>
+    .box {
+      width: 0;
+      height: 0;
+
+      border-width: 100px;
+      border-style: solid;
+      border-color: transparent, transparent, red, transparent;
+    }
+
+    .box1 {
+      border: 1px solid black;
+    }
+    .child1,
+    .child2,
+    .child3 {
+      display: flex;
+    }
+    .child1 {
+      justify-content: flex-start;
+    }
+    .child2 {
+      justify-content: center;
+    }
+    .child3 {
+      justify-content: flex-end;
+    }
+    .item1,
+    .item2,
+    .item3 {
+      width: 100px;
+      height: 100px;
+      background-color: white;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+
+  <div class="box1">
+    <div class="child1">
+      <div class="item1"></div>
+    </div>
+   
+    <div class="child1">
+      <div class="item1"></div>
+    </div>
+   
+    <div class="child1">
+      <div class="item1"></div>
+    </div>
+   
+  </div>
+</body>
+</html>
